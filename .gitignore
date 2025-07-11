@@ -1,2 +1,6 @@
-# .gitignore
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+
+# Ignore specific sensitive files
 config.py
