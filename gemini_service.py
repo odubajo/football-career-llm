@@ -1,11 +1,16 @@
 import requests
 import json
 import google.generativeai as genai
-import streamlit as st # Assuming st.session_state is available for system prompts
+import streamlit as st
+import os 
+from dotenv import load_dotenv 
 
-# Ensure GEMINI_API_KEY is configured from config.py
-# from config import GEMINI_API_KEY
-# genai.configure(api_key=GEMINI_API_KEY) # Configure outside the function or pass key
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+
+genai.configure(api_key=GEMINI_API_KEY)
 
 def get_gemini_response(user_message, api_key_param):
     if not api_key_param:
@@ -72,7 +77,7 @@ def get_gemini_response(user_message, api_key_param):
         "generationConfig": generation_config
     }
 
-    api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key_param}"
+    api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}" # Use the globally loaded key here
 
     try:
         response = requests.post(api_url, headers={'Content-Type': 'application/json'}, data=json.dumps(payload))

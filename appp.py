@@ -1,15 +1,26 @@
 import streamlit as st
 import google.generativeai as genai
+import os 
+from dotenv import load_dotenv 
+
+
+load_dotenv()
 
 # Import from your new files
-from config import GEMINI_API_KEY, INITIAL_APPLICATION_FORM_URL
+from config import INITIAL_APPLICATION_FORM_URL
 from data_manager import get_user_data
 from gemini_service import get_gemini_response
 from player_agent import handle_scouting_agent
 from coach_agent import handle_coach_recruitment_agent
-from utils import contains_any_keyword # Only need contains_any_keyword if used outside agent functions directly
+from utils import contains_any_keyword 
 
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
+
+
+# API Key
+api_key = GEMINI_API_KEY
 
 # Streamlit Page Configuration
 st.set_page_config(
